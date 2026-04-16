@@ -1,11 +1,14 @@
 import AuthLayout from "@/features/auth/layout/AuthLayout";
 import LoginPage from "@/features/auth/pages/LoginPage";
-import RegesterPage from "@/features/auth/pages/RegesterPage";
+import RegisterPage from "@/features/auth/pages/RegesterPage";
 import {
     createBrowserRouter,
     Navigate,
     RouterProvider,
 } from "react-router-dom";
+import Home from "@/features/home/Home"
+import Members from "@/features/members";
+import MainLayout from "@/layouts/MainLayout"
 
 const router = createBrowserRouter(
     [
@@ -17,9 +20,20 @@ const router = createBrowserRouter(
                     element: <LoginPage />,
                 },
                 {
-                    path: "/regester",
-                    element: <RegesterPage />,
+                    path: "/register",
+                    element: <RegisterPage />,
                 },
+            ],
+        },
+
+        {
+            path: "/",
+            element: <MainLayout />,
+            children: [
+                { index: true, element: <Home /> }, // default page
+                { path: "members", element: <Members /> },
+                //{ path: "products", element: <Products /> },
+                //{ path: "payment", element: <Payment /> },
             ],
         },
 

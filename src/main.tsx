@@ -6,7 +6,9 @@ import { Routes } from "./routes";
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <Suspense fallback={null}>
-            <Routes />
+           <Routes />
+           
+        
         </Suspense>
     </StrictMode>,
 );
