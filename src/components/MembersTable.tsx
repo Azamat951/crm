@@ -34,10 +34,10 @@ const filteredMembers = members.filter((member) =>
           <tr>
             <th className="text-left px-6 py-3 text-sm font-medium">Name</th>
             <th className="text-left px-6 py-3 text-sm font-medium">Phone Number</th>
-            <th className="text-left px-6 py-3 text-sm font-medium hidden md:table-cell">Status</th>
-            <th className="text-left px-6 py-3 text-sm font-medium hidden md:table-cell">Type</th>
-            <th className="text-left px-6 py-3 text-sm font-medium hidden md:table-cell">Expire Time</th>
-            <th className="text-left px-6 py-3 text-sm font-medium hidden md:table-cell">Action</th>
+            <th className="hidden md:table-cell text-left px-6 py-3 text-sm font-medium">Status</th>
+            <th className="hidden md:table-cell text-left px-6 py-3 text-sm font-medium">Type</th>
+            <th className="hidden md:table-cell text-left px-6 py-3 text-sm font-medium">Expire Time</th>
+            <th className="hidden md:table-cell text-left px-6 py-3 text-sm font-medium">Action</th>
           </tr>
         </thead>
 
