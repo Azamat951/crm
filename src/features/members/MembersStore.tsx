@@ -40,7 +40,7 @@ export const useMembersStore = create<MembersState>((set) => ({
   setSearch: (value) => set({ search: value }),
   
   openMemberId: null,
-  setMemberId: (id) =>
+  setMemberId: (id: number | null) =>
   set((state) => ({
     openMemberId: state.openMemberId === id ? null : id,
   })),
