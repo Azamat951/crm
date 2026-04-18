@@ -29,7 +29,7 @@ type MembersState = {
   deleteMember: (id: number) => void;
 
   openMemberId: number | null;
-  setMemberId: (id: number) => void
+  setMemberId: (id: number | null) => void
 };
 
 export const useMembersStore = create<MembersState>((set) => ({
