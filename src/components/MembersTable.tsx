@@ -65,7 +65,7 @@ const filteredMembers = members.filter((member) =>
       <td className="px-6 py-4 text-sm hidden md:table-cell">{member.type}</td> 
       <td className="px-6 py-4 text-sm hidden md:table-cell">{member.expire}</td>
 
-      <td className="px-6 py-4 text-sm">
+      <td className="w-[150px] md:table-cell px-6 py-4 text-sm">
         <div className="flex gap-2">
           <LogOutButton onClick={() => console.log("logout clicked")} />
           <EditButton onClick={() => openEditModal(member)} />
