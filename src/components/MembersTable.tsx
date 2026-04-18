@@ -50,7 +50,7 @@ const filteredMembers = members.filter((member) =>
       <td className="px-6 py-4 text-sm">{member.name}</td>
       <td className="px-6 py-4 text-sm hidden md:table-cell">{member.phone}</td>
       <td className=
-      {`px-[10px] py-[5px] rounded-[10px] text-white text-sm ${member.status === "Available" ? "bg-[#369B46]" : "bg-[#BE2828]"  }`}>
+      {`px-[10px] py-[5px] rounded-[10px] text-white text-sm w-[60px] h-[15px] ${member.status === "Available" ? "bg-[#369B46]" : "bg-[#BE2828]"  }`}>
       {member.status}
       </td>
       <td className="px-6 py-4 text-sm hidden md:table-cell">{member.type}</td> 
