@@ -1,7 +1,7 @@
 import { EditIcon } from "./Icons"
 
 type EbtnProps = {
-    onClick:() => void,//placeholder for actual logout func
+    onClick:() => void,
     style?: string
 }
 

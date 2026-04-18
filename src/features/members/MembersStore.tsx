@@ -1,3 +1,4 @@
+
 import { create } from "zustand";
 
 export type Member = {
@@ -26,6 +27,9 @@ type MembersState = {
   addMember: (member: Member) => void;
   editMember: (member: Member) => void;
   deleteMember: (id: number) => void;
+
+  openMemberId: number | null;
+  setMemberId: (id: number) => void
 };
 
 export const useMembersStore = create<MembersState>((set) => ({
@@ -34,7 +38,12 @@ export const useMembersStore = create<MembersState>((set) => ({
   
   search: "",
   setSearch: (value) => set({ search: value }),
-
+  
+  openMemberId: null,
+  setMemberId: (id) =>
+  set((state) => ({
+    openMemberId: state.openMemberId === id ? null : id,
+  })),
   
   selectedMember: null,
   mode: null,

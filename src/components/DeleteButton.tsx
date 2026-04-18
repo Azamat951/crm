@@ -1,7 +1,7 @@
 import { DelIcon } from "./Icons"
 
 type DbtnProps = {
-    onClick:() => void,//placeholder for actual logout func
+    onClick:() => void,
     style?: string
 }
 

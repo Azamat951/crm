@@ -4,6 +4,7 @@ import { EditButton } from "./EditButton";
 import { useMembersStore } from "@/features/members/MembersStore";
 import { useState } from "react";
 import { useMemberModal } from "@/features/members/UseMemberModal";
+import { ExpandIcon } from "./Icons";
 
 
 const MembersTable = () => {
@@ -13,8 +14,8 @@ const MembersTable = () => {
   const start = (page - 1) * itemsPerPage;
   const end = start + itemsPerPage;
   
-  const {deleteMember} = useMembersStore()
-  const { members, search } = useMembersStore();
+  const {deleteMember,openMemberId} = useMembersStore()
+  const { members, search, setMemberId } = useMembersStore();
 
 const filteredMembers = members.filter((member) =>
   member.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -43,34 +44,37 @@ const filteredMembers = members.filter((member) =>
         {/* Body */}
         <tbody className="bg-[#343743] text-white">
           {paginatedMembers.map((member) => (
-            <tr key={member.id} className="hover:bg-[#444858] duration-500">
-              <td className="px-6 py-4 text-sm">{member.name}</td>
-              <td className="px-6 py-4 text-sm">{member.phone}</td>
+  <>
+    {/* MAIN ROW */}
+    <tr key={member.id} className="hover:bg-[#444858] duration-500">
+      <td className="px-6 py-4 text-sm">{member.name}</td>
+      <td className="px-6 py-4 text-sm">{member.phone}</td>
 
-              {/* Status badge */}
-              <td className="px-6 py-4 text-sm">
-                <span
-                  className={`px-[10px] py-[5px] rounded-[10px] text-white text-sm ${
-                    member.status === "Available" ? "bg-[#369B46]" : "bg-[#BE2828]"
-                  }`}
-                >
-                  {member.status}
-                </span>
-              </td>
+      <td className="px-6 py-4 text-sm">
+        <div className="flex gap-2">
+          <LogOutButton onClick={() => console.log("logout clicked")} />
+          <EditButton onClick={() => openEditModal(member)} />
+          <DeleteButton onClick={() => deleteMember(member.id)} />
 
-              <td className="px-6 py-4 text-sm">{member.type}</td>
-              <td className="px-6 py-4 text-sm">{member.expire}</td>
+          <button onClick={() => setMemberId(member.id)}>
+            <ExpandIcon />
+          </button>
+        </div>
+      </td>
+    </tr>
 
-              <td className="px-6 py-4 text-sm">
-                <div className="flex gap-2">
-                  <LogOutButton onClick={() => console.log("logout clicked")}/>
-                  <EditButton onClick={() => openEditModal(member)}/>
-                  <DeleteButton onClick={() => deleteMember(member.id)}/>
-                  
-                </div>
-              </td>
-            </tr>
-          ))}
+    {/* EXPANDED ROW */}
+    {openMemberId === member.id && (
+      <tr>
+        <td colSpan={6}>
+          Expanded content here
+        </td>
+      </tr>
+    )}
+  </>
+))}
+
+          
         </tbody>
       </table>
 
