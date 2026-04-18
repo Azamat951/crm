@@ -63,14 +63,44 @@ const filteredMembers = members.filter((member) =>
       </td>
     </tr>
 
-    {/* EXPANDED ROW */}
+  
     {openMemberId === member.id && (
-      <tr>
-        <td colSpan={6}>
-          Expanded content here
-        </td>
-      </tr>
-    )}
+  <tr className="md:hidden">
+    <td colSpan={6} className="bg-[#343743]">
+      <div className="px-6 py-4 flex flex-col gap-3 text-sm text-white">
+
+        <div className="flex justify-between">
+          <span className="text-gray-400">Phone</span>
+          <span>{member.phone}</span>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <span className="text-gray-400">Status</span>
+          <span
+            className={`px-[10px] py-[5px] rounded-[10px] text-white text-sm ${
+              member.status === "Available"
+                ? "bg-[#369B46]"
+                : "bg-[#BE2828]"
+            }`}
+          >
+            {member.status}
+          </span>
+        </div>
+
+        <div className="flex justify-between">
+          <span className="text-gray-400">Type</span>
+          <span>{member.type}</span>
+        </div>
+
+        <div className="flex justify-between">
+          <span className="text-gray-400">Expire</span>
+          <span>{member.expire}</span>
+        </div>
+
+      </div>
+    </td>
+  </tr>
+)}
   </>
 ))}
 
