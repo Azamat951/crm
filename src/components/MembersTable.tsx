@@ -49,10 +49,19 @@ const filteredMembers = members.filter((member) =>
     <tr key={member.id} className="hover:bg-[#444858] duration-500">
       <td className="px-6 py-4 text-sm">{member.name}</td>
       <td className="px-6 py-4 text-sm hidden md:table-cell">{member.phone}</td>
-      <td className=
-      {`px-[10px] py-[5px] rounded-[10px] text-white text-sm w-[60px] h-[15px] ${member.status === "Available" ? "bg-[#369B46]" : "bg-[#BE2828]"  }`}>
+      <td className="hidden md:table-cell px-6 py-4 text-sm">
+  <div className="flex items-center">
+    <span
+      className={`inline-flex items-center px-[10px] py-[5px] rounded-[10px] text-white text-sm w-fit ${
+        member.status === "Available"
+          ? "bg-[#369B46]"
+          : "bg-[#BE2828]"
+      }`}
+    >
       {member.status}
-      </td>
+    </span>
+  </div>
+</td>
       <td className="px-6 py-4 text-sm hidden md:table-cell">{member.type}</td> 
       <td className="px-6 py-4 text-sm hidden md:table-cell">{member.expire}</td>
 
