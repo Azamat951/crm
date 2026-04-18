@@ -28,7 +28,7 @@ const filteredMembers = members.filter((member) =>
 
   return (
     <div className="w-full rounded-[20px] relative">
-      <table className="w-full">
+      <table className="w-full table-fixed">
         {/* Header */}
         <thead className="bg-[#343743] text-white">
           <tr>
