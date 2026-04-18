@@ -9,7 +9,7 @@ const Members = () => {
     <div className="mt-[44px]">   
     <ToolBar/>
     <div className="overflow-x-auto min-w-0">
-  <div className="min-w-[1040px]">
+  <div className=" md:table-cell min-w-[1040px]">
     
     <MembersTable />
 </div>
