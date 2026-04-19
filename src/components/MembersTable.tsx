@@ -6,10 +6,8 @@ import { ExpandIcon } from "./Icons";
 import { useMembersStore } from "@/features/members/MembersStore";
 import { useMemberModal } from "@/features/members/UseMemberModal";
 
-
 const MembersTable = () => {
   const { openEditModal } = useMemberModal();
-
   const [page, setPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -26,170 +24,161 @@ const MembersTable = () => {
   );
 
   const paginatedMembers = filteredMembers.slice(start, end);
-
   const totalPages = Math.ceil(filteredMembers.length / itemsPerPage);
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="w-full rounded-[20px] relative">
-      <table className="w-full table-fixed">
-        {/* HEADER */}
-        <thead className="bg-[#343743] text-white">
-          <tr>
-            <th className="w-[20%] text-left px-6 py-3 text-sm font-medium">
-              Name
-            </th>
+    <div className="w-full rounded-[20px] bg-[#343743] overflow-hidden">
+      {/* Table Container with Horizontal Scroll on Mobile */}
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[640px] table-auto md:table-fixed"> {/* Changed to table-auto + min-width */}
+          {/* HEADER */}
+          <thead className="bg-[#2a2d38] text-white sticky top-0 z-10">
+            <tr>
+              <th className="w-2/5 md:w-[20%] text-left px-4 md:px-6 py-4 text-sm font-medium">
+                Name
+              </th>
+              <th className="hidden md:table-cell w-[20%] text-left px-6 py-4 text-sm font-medium">
+                Phone
+              </th>
+              <th className="hidden md:table-cell w-[15%] text-left px-6 py-4 text-sm font-medium">
+                Status
+              </th>
+              <th className="hidden md:table-cell w-[15%] text-left px-6 py-4 text-sm font-medium">
+                Type
+              </th>
+              <th className="hidden md:table-cell w-[15%] text-left px-6 py-4 text-sm font-medium">
+                Expire
+              </th>
+              <th className="w-[20%] md:w-[15%] text-left px-4 md:px-6 py-4 text-sm font-medium">
+                Action
+              </th>
+            </tr>
+          </thead>
 
-            <th className="w-[20%] hidden md:table-cell text-left px-6 py-3 text-sm font-medium">
-              Phone
-            </th>
-
-            <th className="w-[15%] hidden md:table-cell text-left px-6 py-3 text-sm font-medium">
-              Status
-            </th>
-
-            <th className="w-[15%] hidden md:table-cell text-left px-6 py-3 text-sm font-medium">
-              Type
-            </th>
-
-            <th className="w-[15%] hidden md:table-cell text-left px-6 py-3 text-sm font-medium">
-              Expire
-            </th>
-
-            <th className="w-[15%] text-left px-6 py-3 text-sm font-medium">
-              Action
-            </th>
-          </tr>
-        </thead>
-
-        {/* BODY */}
-        <tbody className="bg-[#343743] text-white">
-          {paginatedMembers.map((member) => (
-            <Fragment key={member.id}>
-              {/* MAIN ROW */}
-              <tr className="hover:bg-[#444858] duration-500">
-                <td className="px-6 py-4 text-sm">{member.name}</td>
-
-                <td className="hidden md:table-cell px-6 py-4 text-sm">
-                  {member.phone}
-                </td>
-
-                <td className="hidden md:table-cell px-6 py-4 text-sm">
-                  <span
-                    className={`inline-flex items-center px-[10px] py-[5px] rounded-[10px] text-white text-sm w-fit ${
-                      member.status === "Available"
-                        ? "bg-[#369B46]"
-                        : "bg-[#BE2828]"
-                    }`}
-                  >
-                    {member.status}
-                  </span>
-                </td>
-
-                <td className="hidden md:table-cell px-6 py-4 text-sm">
-                  {member.type}
-                </td>
-
-                <td className="hidden md:table-cell px-6 py-4 text-sm">
-                  {member.expire}
-                </td>
-
-                <td className="px-6 py-4 text-sm">
-                  <div className="flex gap-2 items-center">
-                    <LogOutButton onClick={() => console.log("logout")} />
-                    <EditButton onClick={() => openEditModal(member)} />
-                    <DeleteButton onClick={() => deleteMember(member.id)} />
-
-                    {/* MOBILE EXPAND BUTTON */}
-                    <button
-                      className="md:hidden"
-                      onClick={() =>
-                        setMemberId(
-                          openMemberId === member.id ? null : member.id
-                        )
-                      }
+          {/* BODY */}
+          <tbody className="text-white divide-y divide-[#444858]">
+            {paginatedMembers.map((member) => (
+              <Fragment key={member.id}>
+                {/* MAIN ROW */}
+                <tr className="hover:bg-[#444858] transition-colors">
+                  <td className="px-4 md:px-6 py-4 text-sm font-medium">
+                    {member.name}
+                  </td>
+                  <td className="hidden md:table-cell px-6 py-4 text-sm">
+                    {member.phone}
+                  </td>
+                  <td className="hidden md:table-cell px-6 py-4 text-sm">
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-[10px] text-xs font-medium ${
+                        member.status === "Available"
+                          ? "bg-[#369B46]"
+                          : "bg-[#BE2828]"
+                      }`}
                     >
-                      <ExpandIcon />
-                    </button>
-                  </div>
-                </td>
-              </tr>
+                      {member.status}
+                    </span>
+                  </td>
+                  <td className="hidden md:table-cell px-6 py-4 text-sm">
+                    {member.type}
+                  </td>
+                  <td className="hidden md:table-cell px-6 py-4 text-sm">
+                    {member.expire}
+                  </td>
+                  <td className="px-4 md:px-6 py-4 text-sm">
+                    <div className="flex items-center gap-2">
+                      <LogOutButton onClick={() => console.log("logout")} />
+                      <EditButton onClick={() => openEditModal(member)} />
+                      <DeleteButton onClick={() => deleteMember(member.id)} />
 
-              {/* EXPANDED ROW (MOBILE ONLY) */}
-              {openMemberId === member.id && (
-                <tr className="md:hidden">
-                  <td colSpan={6} className="bg-[#343743]">
-                    <div className="px-6 py-4 flex flex-col gap-3 text-sm text-white">
-
-                      <div className="flex justify-between">
-                        <span className="text-gray-400">Phone</span>
-                        <span>{member.phone}</span>
-                      </div>
-
-                      <div className="flex justify-between items-center">
-                        <span className="text-gray-400">Status</span>
-                        <span
-                          className={`px-[10px] py-[5px] rounded-[10px] text-white text-sm ${
-                            member.status === "Available"
-                              ? "bg-[#369B46]"
-                              : "bg-[#BE2828]"
-                          }`}
-                        >
-                          {member.status}
-                        </span>
-                      </div>
-
-                      <div className="flex justify-between">
-                        <span className="text-gray-400">Type</span>
-                        <span>{member.type}</span>
-                      </div>
-
-                      <div className="flex justify-between">
-                        <span className="text-gray-400">Expire</span>
-                        <span>{member.expire}</span>
-                      </div>
-
+                      {/* Mobile Expand Button */}
+                      <button
+                        className="md:hidden p-1"
+                        onClick={() =>
+                          setMemberId(
+                            openMemberId === member.id ? null : member.id
+                          )
+                        }
+                      >
+                        <ExpandIcon />
+                      </button>
                     </div>
                   </td>
                 </tr>
-              )}
-            </Fragment>
-          ))}
-        </tbody>
-      </table>
 
-      {/* PAGINATION */}
-      <div className="flex items-center justify-center gap-2 mt-4 bottom-0 right-2 absolute">
-        <div
-          onClick={() => setPage((p) => Math.max(p - 1, 1))}
-          className="w-8 h-8 flex items-center justify-center rounded-full text-white border border-white bg-gray-500 cursor-pointer"
-        >
-          {"<"}
-        </div>
-
-        {pages.map((p) => (
-          <div
-            key={p}
-            onClick={() => setPage(p)}
-            className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-white ${
-              page === p
-                ? "bg-purple-500"
-                : "bg-gray-600 border border-white"
-            }`}
-          >
-            {p}
-          </div>
-        ))}
-
-        <div
-          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-          className="w-8 h-8 flex items-center justify-center rounded-full text-white border border-white bg-gray-500 cursor-pointer"
-        >
-          {">"}
-        </div>
+                {/* EXPANDED MOBILE DETAILS */}
+                {openMemberId === member.id && (
+                  <tr className="md:hidden bg-[#2a2d38]">
+                    <td colSpan={6} className="px-4 py-5">
+                      <div className="flex flex-col gap-4 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Phone</span>
+                          <span>{member.phone}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-400">Status</span>
+                          <span
+                            className={`px-3 py-1 rounded-[10px] text-xs font-medium ${
+                              member.status === "Available"
+                                ? "bg-[#369B46]"
+                                : "bg-[#BE2828]"
+                            }`}
+                          >
+                            {member.status}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Type</span>
+                          <span>{member.type}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Expire</span>
+                          <span>{member.expire}</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      <div className="h-[50px]" />
+      {/* PAGINATION - Fixed at bottom, centered, better mobile spacing */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 py-6 border-t border-[#444858] bg-[#343743]">
+          <button
+            onClick={() => setPage((p) => Math.max(p - 1, 1))}
+            disabled={page === 1}
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 disabled:opacity-40 transition-colors"
+          >
+            ←
+          </button>
+
+          {pages.map((p) => (
+            <button
+              key={p}
+              onClick={() => setPage(p)}
+              className={`w-9 h-9 flex items-center justify-center rounded-full text-sm transition-colors ${
+                page === p
+                  ? "bg-purple-600 text-white"
+                  : "bg-[#444858] hover:bg-[#555b6b] border border-white/20"
+              }`}
+            >
+              {p}
+            </button>
+          ))}
+
+          <button
+            onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+            disabled={page === totalPages}
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-white/30 hover:bg-white/10 disabled:opacity-40 transition-colors"
+          >
+            →
+          </button>
+        </div>
+      )}
     </div>
   );
 };
